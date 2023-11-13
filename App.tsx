@@ -5,16 +5,21 @@
  * @format
  */
 
-import React, {useState,useEffect} from 'react';
+import * as React from 'react';
+import {useState, useEffect} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
+import {routes, StackParamList} from './app/routes';
 import {NavigationContainer} from '@react-navigation/native';
 import fetchWrapper from './app/fetchWrapper';
+import {Context} from './app/contextProvider';
 
 interface UserInfo {
   name: string;
 }
+
+const Stack = createNativeStackNavigator();
+const randomUser: number = Math.floor(Math.random() * 10) + 1;
 
 function Home(): JSX.Element {
   const [loading, isLoading] = useState(false);
@@ -53,11 +58,25 @@ function Home(): JSX.Element {
   );
 }
 function App(): JSX.Element {
+  const [currentUser, setCurrentUser] = React.useState<number>();
+  React.useEffect(() => {
+    setCurrentUser(randomUser);
+  }, []);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dashboard">
-        <Stack.Screen name="Dashboard" component={Home} />
-      </Stack.Navigator>
+      <Context.Provider value={currentUser}>
+        <Stack.Navigator initialRouteName="Dashboard">
+          {routes.map(route => (
+            <Stack.Screen
+              key={route.name}
+              name={route.name}
+              component={route.component}
+              initialParams={route.initialParams}
+            />
+          ))}
+        </Stack.Navigator>
+      </Context.Provider>
     </NavigationContainer>
   );
 }

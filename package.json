@@ -2,6 +2,7 @@
   "name": "Demo",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -10,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@ant-design/react-native": "^5.0.5",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
@@ -22,7 +24,11 @@
     "react-native-screens": "^3.27.0",
     "react-navigation": "^5.0.0",
     "react-navigation-stack": "^2.10.4",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^12.3.2",
+    "antd": "^5.11.0",
+    "react-native-reanimated": "^3.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
