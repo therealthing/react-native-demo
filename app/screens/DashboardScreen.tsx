@@ -1,17 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {useState, useCallback, useContext} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {ScreenContainer, SidebarContainer} from './wrappers';
 import {SafeAreaView, Text} from 'react-native';
 import fetchWrapper from '../fetchWrapper';
 import {MainMenu} from '../components/MainMenu';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import View from '@ant-design/react-native/lib/view';
 import WingBlank from '@ant-design/react-native/lib/wing-blank';
 import WhiteSpace from '@ant-design/react-native/lib/white-space';
 import Card from '@ant-design/react-native/lib/card';
-import {StackParamList} from '../routes';
 import {Context} from '../contextProvider';
 import {colors} from './constants';
 
@@ -28,12 +26,10 @@ interface UserInfo {
   company: CompanyDetails;
   address: AddressDetails;
 }
-type DashboardProps = NativeStackScreenProps<StackParamList, 'Dashboard'>;
 
-const DashboardScreen: React.FC<DashboardProps> = function ({
-  navigation,
-}: DashboardProps) {
+const DashboardScreen: React.FC = function () {
   const [user, setUserData] = useState<UserInfo>();
+  const navigation = useNavigation();
   const randomUser = useContext(Context);
 
   useFocusEffect(
