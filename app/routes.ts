@@ -9,11 +9,20 @@ export type StackParamList = {
     body?: string;
   };
 };
+type RouteName = keyof StackParamList;
 
-export const routes = [
-  {name: 'Blog', component: BlogScreen, initialParams: {postId: undefined}},
+export const routes: {
+  name: RouteName;
+  component: React.FC<any>;
+  initialParams?: StackParamList[keyof StackParamList];
+}[] = [
   {
-    name: 'Dashboard',
+    name: 'Blog' as RouteName,
+    component: BlogScreen,
+    initialParams: {postId: undefined},
+  },
+  {
+    name: 'Dashboard' as RouteName,
     component: DashboardScreen,
   },
 ];
