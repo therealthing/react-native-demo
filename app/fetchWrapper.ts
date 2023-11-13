@@ -1,13 +1,20 @@
 import {API_BASE, API_VERSION} from '@env';
 import {logger} from './logger';
 
-const fetchWrapper = async (relPath: string) => {
+const fetchWrapper = async (
+  relPath: string,
+  method: 'GET' | 'PUT' | 'DELETE' | 'POST' = 'GET',
+  data: {} | null,
+) => {
   const ENDPOINT = `${API_BASE}/${relPath}`;
+  let body = method === 'PUT' && data ? JSON.stringify(data) : undefined;
+
   const options = {
-    method: 'GET',
-    headers: [],
+    method,
+    headers: {'Content-Type': 'application/json'},
+    body,
   };
-  console.log(ENDPOINT);
+
   try {
     const response = await fetch(ENDPOINT, options);
     return response;
