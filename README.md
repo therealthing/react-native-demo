@@ -84,3 +84,6 @@ To learn more about React Native, take a look at the following resources:
 - `bundle install`` to install Bundler
 - `bundle exec pod install` to install the iOS dependencies managed by CocoaPods.
 
+# Running unit tests
+- `yarn test` should run both Blog.test.tsx and Dashboard.test.tsx
+
