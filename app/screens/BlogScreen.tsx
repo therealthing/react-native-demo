@@ -1,7 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {useState, useCallback, useContext} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+  RouteProp,
+} from '@react-navigation/native';
+
 import View from '@ant-design/react-native/lib/view';
 import WhiteSpace from '@ant-design/react-native/lib/white-space';
 import WingBlank from '@ant-design/react-native/lib/wing-blank';
@@ -12,10 +18,7 @@ import fetchWrapper from '../fetchWrapper';
 import {MainMenu} from '../components/MainMenu';
 import {ArticleItem} from '../components/ArticleItem';
 import {StackParamList} from '../routes';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Context} from '../contextProvider';
-
-type BlogProps = NativeStackScreenProps<StackParamList, 'Blog'>;
 
 type ArticleProps = {
   title: string;
@@ -27,14 +30,13 @@ type ArticleItem = {
   item: ArticleProps;
 };
 
-const BlogScreen: React.FC<BlogProps> = function ({
-  navigation,
-  route,
-}: BlogProps) {
+const BlogScreen: React.FC = function () {
   const [posts, setData] = useState();
   const randomUser = useContext(Context);
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<StackParamList, 'Blog'>>();
+  const {postId} = route?.params;
 
-  const {postId} = route.params;
   useFocusEffect(
     useCallback(() => {
       let isActive = true;
